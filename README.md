@@ -17,10 +17,11 @@
 进程已结束，退出代码为 0
 说明Cookie过期了重新获取Cookie
 
-
-
 获取Cookie简单说明：
 打开某个小区页面，按住F12打开调试，找到网络选项（network）输入小区价格，然后刷新那个小区页面，再搜索，出来后点击标头，往下拉找到Cookie。具体看图片。
+![2](https://github.com/HSDyz/2024Anjuke-xiaoqu--Python/assets/80035767/f354d461-d37d-4295-96dd-8e5a9a7cc18b)
+![1](https://github.com/HSDyz/2024Anjuke-xiaoqu--Python/assets/80035767/89470a47-d481-42a0-9511-883a36ee00b4)
+
 
 
 
