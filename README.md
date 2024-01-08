@@ -22,15 +22,20 @@
 
 4.获取Cookie简单说明：
 打开某个小区页面，按住F12打开调试，找到网络选项（network）输入小区价格，然后刷新那个小区页面，再搜索，出来后点击标头，往下拉找到Cookie。具体看图片。
+
 ![1](https://github.com/HSDyz/2024Anjuke-xiaoqu--Python/assets/80035767/89470a47-d481-42a0-9511-883a36ee00b4)
+
 ![2](https://github.com/HSDyz/2024Anjuke-xiaoqu--Python/assets/80035767/f354d461-d37d-4295-96dd-8e5a9a7cc18b)
 
 
-5.爬取的数据部分展示
+5.爬取的数据部分展示(这个是我需要的数据，如果需要更多数据，可以自己添加代码，都是一样的，具体看网页检查页面的数据位置。)
+
 ![3](https://github.com/HSDyz/2024Anjuke-xiaoqu--Python/assets/80035767/17dbb751-15f1-4b98-a76b-17d1078b0d66)
 
 
 6.有更好的完善点子，提issue。
+
+代码为自己学习的练手作品，小部分有借鉴。
 
 
 
