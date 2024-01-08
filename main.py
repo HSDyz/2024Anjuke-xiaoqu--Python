@@ -17,7 +17,7 @@ def get_page(url):
     """获取页面源码"""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36',
-        'Cookie': 'SECKEY_ABVK=bj/8NG10HRBh0z7uBPDPR4FvoohwiojUhaTglYnDiyw%3D; BMAP_SECKEY=bj_8NG10HRBh0z7uBPDPRw3bV5OgVlXTtfM7a60uYC5XAJ7iu_azzcqwStHb1W_4apsRnCfGDpDVZrOTPI-nCMZnQgbOQ42FM3MFxDnoMWUzV1I2WoaiBuiloOQKXgpsWe09bsSB4BUw5R4Bwq8o2RQ3UZisdovhlQYUew5tPdM51MocEQHZamb1JsdoRiSx; aQQ_ajkguid=BA62A3CA-2135-BFBE-4D8B-686611E2B9D6; ajk-appVersion=; seo_source_type=0; id58=CrIgxGWVOAazb1qWhH3MAg==; 58tj_uuid=a5e004ce-76a8-4ccf-ba79-a3d762393742; als=0; _ga=GA1.2.1614032322.1704284323; new_uv=3; _ga_DYBJHZFBX2=GS1.2.1704346004.3.0.1704346004.0.0.0; sessid=0432A3E4-7991-8F2E-2198-B50C68976242; ctid=15; twe=2; fzq_h=f439b7a82996131bb7593f25aaaa274e_1704615281308_5512e0e990894866a8ad77d68303a088_3063315387; ajk_member_verify=uQxQd%2BRMyDT5fR37iNzK9DsDS5iGcAv9izL2TnzKD6A%3D; ajk_member_verify2=MjI3NDA5NzAyfFJ5cEpNOVh8MQ%3D%3D; fzq_js_anjuke_ershoufang_pc=3124231f637ccc31773647f9ea069107_1704626337441_25; obtain_by=2; fzq_js_anjuke_xiaoqu_pc=b51ed6c851ebcb714056669f48b7acea_1704626375666_23; ajk_member_id=227409702; ajkAuthTicket=TT=45eabf34cc9277c09c7b4ef5d64424dd&TS=1704626376727&PBODY=AR_5OnHYXSuV4Az2Bu5S6WsxML9-46s4lFPiMad6MCoAA2LZkd4lZoLYd7_doGd29iSh_U7B6F924q1cCtqegdRJWBRyxIPW9nx87dhW8nWX9pGfa33LJ53APsze4edHdb7RiA-5TWlhTJhmD9wisepV_Fpo9H5jrsXjWjbXQZI&VER=2&CUID=5W2wnUVnBkt-PePU1fb61Qj5svAO2gEh; xxzl_cid=bd4f3c5b58d342d5b5df15970a188616; xxzl_deviceid=nNEgjhyhWaWTRhrYHFMiprcIS1DdsTrlKEZitMUIYvFmUXCli15aACIIFe1gaIxM'
+        'Cookie': 'Cookie自己获取，不懂看图片或者百度'
     }
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
@@ -76,8 +76,9 @@ def get_house_info(html):
 
 
 def main():
-    """因为只显示50页需要更改m3101（8000元）m3102（8000以上）自己看着设置，还有range(1, 51)如果只有2页那就是range(1, 3)"""
-    urls_1 = ['https://chengdu.anjuke.com/community/wuhou/m3106-p' + str(i) + '/#filtersort' for i in range(2, 8)]
+    """因为只显示50页需要更改m3101（8000元）m3102（8000以上）自己看着设置，还有range(1, 51)如果只有2页那就是range(1, 8)"""
+    """                                              注意    注意                                              注意 """
+    urls_1 = ['https://chengdu.anjuke.com/community/jinniu/m3103-p' + str(i) + '/#filtersort' for i in range(14, 29)]
     """urls_2 = ['https://chengdu.anjuke.com/community/gaoxin/m3102-p' + str(i) + '/#filtersort' for i in range(1, 51)]
     urls_3 = ['https://chengdu.anjuke.com/community/gaoxin/m3103-p' + str(i) + '/#filtersort' for i in range(1, 51)]
     urls_4 = ['https://chengdu.anjuke.com/community/gaoxin/m3104-p' + str(i) + '/#filtersort' for i in range(1, 51)]
@@ -86,44 +87,60 @@ def main():
     urls_7 = ['https://chengdu.anjuke.com/community/gaoxin/m3107-p' + str(i) + '/#filtersort' for i in range(1, 51)]"""
     urls = urls_1
     count = 0
-    url_count = 0
+
     for url in urls:
-        print('正在抓取：', url)
-        html = get_page(url)
+        page_processed = False  # 标记当前页面是否处理完成
+        url_count = 0  # 重置url计数器
 
-        # 检查是否被重定向到登录或验证码页面
-        if 'https://callback.58.com/antibot/verifycode?' in html or 'https://www.anjuke.com/captcha-verify/' in html:
-            print("遇到登录或验证码验证，暂停操作，问题链接：", url)
-            input("请在浏览器中完成人工操作后，按回车键继续...")
-            continue  # 跳过当前循环，处理下一个URL
+        while not page_processed:  # 当前页面未处理完成时持续尝试
+            print('正在抓取：', url)
+            html = get_page(url)
 
-        houses_urls = get_houses_url(html)
-        invalid_info_count = 0
+            # 检查是否被重定向到登录或验证码页面
+            if 'https://callback.58.com/antibot/verifycode?' in html or 'https://www.anjuke.com/captcha-verify/' in html:
+                print("遇到登录或验证码验证，暂停操作，问题链接：", url)
+                input("请在浏览器中完成人工操作后，按回车键继续...")
+                continue  # 重新尝试抓取当前页面
 
-        for i, house_url in enumerate(houses_urls):
-            house_html = get_page(house_url)
-            house_info = get_house_info(house_html)
-            if house_info:
-                house_info['url'] = house_url
-                info = list(house_info.values())
-                print('\n' + str(info[4]))
-                collection.insert_one(house_info)
-            else:
-                invalid_info_count += 1
+            houses_urls = get_houses_url(html)
+            invalid_info_count = 0
 
-            url_count += 1
+            for house_url in houses_urls:
+                house_html = get_page(house_url)
+                house_info = get_house_info(house_html)
+                if house_info:
+                    house_info['url'] = house_url
+                    info = list(house_info.values())
+                    print('\n' + str(info[4]))
+                    collection.insert_one(house_info)
+                else:
+                    invalid_info_count += 1
 
-            if 1 <= url_count <= 2:
-                for _ in tqdm(range(10), desc="暂停中"):
-                    time.sleep(2 / 10)
-            elif 4 <= url_count <= 5:
-                for _ in tqdm(range(10), desc="暂停中"):
-                    time.sleep(5 / 10)
-            elif 10 <= url_count <= 18:
-                for _ in tqdm(range(10), desc="暂停中"):
-                    time.sleep(20 / 10)
+                url_count += 1
 
-        count += (len(houses_urls) - invalid_info_count)
+                # 根据url_count的值决定暂停时间
+                pause_seconds = 0
+                if url_count == 2:
+                    pause_seconds = 2  # 暂停 2 秒
+                elif url_count == 6:
+                    pause_seconds = 5  # 暂停 5 秒
+                elif url_count == 15:
+                    pause_seconds = 8  # 暂停 8 秒
+                elif url_count == 22:
+                    pause_seconds = 10  # 暂停 10 秒
+
+                # 使用进度条显示暂停
+                if pause_seconds > 0:
+                    with tqdm(total=100, desc="暂停中") as pbar:
+                        for i in range(100):
+                            time.sleep(pause_seconds / 100)
+                            pbar.update(1)
+
+                if url_count >= 30:
+                    url_count = 0  # 当url_count达到30，重置计数器
+
+            count += (len(houses_urls) - invalid_info_count)
+            page_processed = True  # 当前页面处理完成，退出循环
 
 
 if __name__ == '__main__':
