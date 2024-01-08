@@ -1,8 +1,8 @@
 # anjuke小区_spider
 安居客小区数据爬虫，结果保存mongodb
 
-1.请求使用`requests`，解析使用`pyquery`，存储数据使用`openpyxl`
-python3.0及以上，request,pyquery,tqm,等包自行安装，具体看代码import。
+1.请求使用`requests`，解析使用`pyquery`。
+使用配置:python3.0及以上，request,pyquery,tqm,等包自行安装，具体看代码import。
 
 2.需要自己更改的地方，cookie，还有urls_1 = 部分，因为安居客小区数据最多显示50页，所以根据价格爬取。
 
